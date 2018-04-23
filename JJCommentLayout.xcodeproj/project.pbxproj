@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EBBEF56208D8FAD0062315E /* JJCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBEF55208D8FAD0062315E /* JJCommon.swift */; };
 		0ED0C6FE2088267800ED0CEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0C6FD2088267800ED0CEB /* AppDelegate.swift */; };
 		0ED0C7002088267800ED0CEB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0C6FF2088267800ED0CEB /* ViewController.swift */; };
 		0ED0C7032088267800ED0CEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ED0C7012088267800ED0CEB /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 		0ED0C7132088267A00ED0CEB /* JJCommentLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0C7122088267A00ED0CEB /* JJCommentLayoutTests.swift */; };
 		0ED0C71E2088267A00ED0CEB /* JJCommentLayoutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0C71D2088267A00ED0CEB /* JJCommentLayoutUITests.swift */; };
 		0EE57DF820894EEE0022D51E /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EE57DF720894EEE0022D51E /* test.json */; };
+		0EE57E03208D7DE50022D51E /* JJBottomInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE57E02208D7DE50022D51E /* JJBottomInputView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0EBBEF55208D8FAD0062315E /* JJCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JJCommon.swift; sourceTree = "<group>"; };
 		0ED0C6FA2088267800ED0CEB /* JJCommentLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JJCommentLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ED0C6FD2088267800ED0CEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0ED0C6FF2088267800ED0CEB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +52,8 @@
 		0ED0C71D2088267A00ED0CEB /* JJCommentLayoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JJCommentLayoutUITests.swift; sourceTree = "<group>"; };
 		0ED0C71F2088267A00ED0CEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EE57DF720894EEE0022D51E /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
+		0EE57DFA208952880022D51E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		0EE57E02208D7DE50022D51E /* JJBottomInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JJBottomInputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +88,7 @@
 				0ED0C7112088267A00ED0CEB /* JJCommentLayoutTests */,
 				0ED0C71C2088267A00ED0CEB /* JJCommentLayoutUITests */,
 				0ED0C6FB2088267800ED0CEB /* Products */,
+				0EE57DF9208952870022D51E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,7 +107,9 @@
 			children = (
 				0ED0C6FD2088267800ED0CEB /* AppDelegate.swift */,
 				0ED0C6FF2088267800ED0CEB /* ViewController.swift */,
+				0EBBEF55208D8FAD0062315E /* JJCommon.swift */,
 				0ED0C7012088267800ED0CEB /* Main.storyboard */,
+				0EE57E01208D7DC80022D51E /* Views */,
 				0ED0C7042088267A00ED0CEB /* Assets.xcassets */,
 				0ED0C7062088267A00ED0CEB /* LaunchScreen.storyboard */,
 				0EE57DF720894EEE0022D51E /* test.json */,
@@ -126,6 +134,22 @@
 				0ED0C71F2088267A00ED0CEB /* Info.plist */,
 			);
 			path = JJCommentLayoutUITests;
+			sourceTree = "<group>";
+		};
+		0EE57DF9208952870022D51E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0EE57DFA208952880022D51E /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0EE57E01208D7DC80022D51E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0EE57E02208D7DE50022D51E /* JJBottomInputView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,7 +284,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EE57E03208D7DE50022D51E /* JJBottomInputView.swift in Sources */,
 				0ED0C7002088267800ED0CEB /* ViewController.swift in Sources */,
+				0EBBEF56208D8FAD0062315E /* JJCommon.swift in Sources */,
 				0ED0C6FE2088267800ED0CEB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -437,6 +463,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2ESPM7ZN27;
 				INFOPLIST_FILE = JJCommentLayout/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -455,6 +482,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2ESPM7ZN27;
 				INFOPLIST_FILE = JJCommentLayout/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
