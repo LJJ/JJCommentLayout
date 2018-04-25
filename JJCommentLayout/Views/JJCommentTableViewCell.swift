@@ -9,12 +9,198 @@
 import Foundation
 import UIKit
 
+let kBaseRightMargin:CGFloat = 11;
+let kBaseLeftMargin:CGFloat = 43;
+let kBaseHorizonMarginDiff:CGFloat = 3;
+let kVerticalSpaceHeight1:CGFloat = 5;
+let kVerticalSpaceHeight2:CGFloat = 13.0;
+let kVerticalTopMarginHeight:CGFloat = 18.0;
+let kVerticalBottomMarginHeight:CGFloat = 16.0;
+let kVerticalCiteTopMarginHeight:CGFloat = 10.0;
+let kVerticalCiteBottomMarginHeight:CGFloat = 16.0;
+
+let kUserNameLabelHeight:CGFloat = 13;
+let kUserFromLabelHeight:CGFloat = 10;
+let kCommentLabelMaxlHeight:CGFloat = 126;
+
+let kCommentFont = UIFont.systemFont(ofSize: 17.5)
+
+let kBackgroundColor = RGB(246, 246, 246)
+let kCiteBackgroundColor = RGB(255, 255, 255)
+let kLineColor = RGB(202, 202, 202)
+let kUserFromFontColor = RGB(149, 149, 149)
+let kUserNameFontColor = RGB(81, 180, 218)
+let kCommentFontColor = RGB(34, 34, 33)
+let kSubviewBackgroundColor = UIColor.clear
+
+protocol JJCommentTableViewCellDelegate:AnyObject {
+    func commentTableViewCellVoteUp(_ locationModel:JJCommentLocationModel)
+    func commentTableViewCellUnfold(_ locationModel:JJCommentLocationModel)
+    func commentTableViewCellVoteDown(_ locationModel:JJCommentLocationModel)
+    func commentTableViewCellShare(_ locationModel:JJCommentLocationModel)
+    func commentTableViewCellReply(_ locationModel:JJCommentLocationModel)
+    func commentTableViewCellExpand(_ locationModel:JJCommentLocationModel)
+}
+
+
 class JJCommentTableViewCell:UITableViewCell {
+    let userNameLabel = UILabel()
+    let userFromLabel = UILabel()
+    let floorNumberLabel = UILabel()
+    let commentLabel = UILabel()
+    let upNumberLabel = UILabel()
+    let upBtn = UIButton()
+    let unfoldBtn = UIButton()
+    let avatarImageView = UIImageView()
+    var locationModel:JJCommentLocationModel!
+    let showAllBtn = UIButton()
+    
+    weak var delegate:JJCommentTableViewCellDelegate?
+    
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
+        backgroundColor = kBackgroundColor
+        contentView.backgroundColor = .clear
+        
+        userNameLabel.textColor = kUserNameFontColor
+        userNameLabel.font = UIFont.systemFont(ofSize: 13)
+        userNameLabel.backgroundColor = kSubviewBackgroundColor
+        contentView.addSubview(userNameLabel)
+        
+        userFromLabel.textColor = kUserFromFontColor
+        userFromLabel.font = UIFont.systemFont(ofSize: 10)
+        userFromLabel.backgroundColor = kSubviewBackgroundColor
+        contentView.addSubview(userFromLabel)
+        
+        floorNumberLabel.textColor = kUserFromFontColor
+        floorNumberLabel.font = UIFont.systemFont(ofSize: 12)
+        floorNumberLabel.textAlignment = .right
+        contentView.addSubview(floorNumberLabel)
+        
+        commentLabel.textColor = kCommentFontColor
+        commentLabel.font = kCommentFont
+        commentLabel.numberOfLines = 0
+        commentLabel.backgroundColor = kSubviewBackgroundColor
+        contentView.addSubview(commentLabel)
+        
+        let touch = UITapGestureRecognizer(target: self, action: #selector(tap))
+        touch.numberOfTapsRequired = 1
+        commentLabel.addGestureRecognizer(touch)
+        
+        upNumberLabel.frame = CGRect(x: frame.size.width-75, y: kVerticalTopMarginHeight+kUserNameLabelHeight, width: 45, height: kUserNameLabelHeight)
+        upNumberLabel.textColor = kUserFromFontColor
+        upNumberLabel.textAlignment = .right
+        upNumberLabel.font = UIFont.systemFont(ofSize: 12)
+        upNumberLabel.backgroundColor = .clear
+        contentView.addSubview(upNumberLabel)
+        
+        upBtn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        upBtn.setImage(UIImage(named: "up"), for: .normal)
+        let image = UIImage(named: "up_selected")?.withRenderingMode(.alwaysTemplate)
+        upBtn.setImage(image, for: .selected)
+        upBtn.imageView?.tintColor = RGB(229, 43, 51)
+        upBtn.addTarget(self, action: #selector(voteUp), for: .touchUpInside)
+        contentView.addSubview(upBtn)
+        
+        unfoldBtn.frame = CGRect(x: 0, y: 0, width: 200, height: 16)
+        unfoldBtn.setImage(UIImage(named: "unflod"), for: .normal)
+        unfoldBtn.setTitle("Show the hidden", for: .normal)
+        unfoldBtn.setTitleColor(RGB(153, 153, 153), for: .normal)
+        unfoldBtn.addTarget(self, action: #selector(unfold), for: .touchUpInside)
+        unfoldBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 125, 0, -125)
+        unfoldBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+        contentView.addSubview(unfoldBtn)
+        
+        showAllBtn.frame = CGRect(x: 0, y: 0, width: 57, height: 19)
+        showAllBtn.layer.cornerRadius = showAllBtn.frame.size.height/2
+        showAllBtn.layer.borderColor = kLineColor.cgColor
+        showAllBtn.layer.borderWidth = 0.5
+        showAllBtn.setTitle("All", for: .normal)
+        showAllBtn.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+        showAllBtn.setTitleColor(kUserFromFontColor, for: .normal)
+        showAllBtn.addTarget(self, action: #selector(expand), for: .touchUpInside)
+        contentView.addSubview(showAllBtn)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    func setUpCell(with model:JJCommentLocationModel) {
+        locationModel = model
+        setNeedsDisplay()
+        
+        for subView in contentView.subviews {
+            subView.isHidden = true
+        }
+        
+        if locationModel.type == .hide {
+            unfoldBtn.center = CGPoint(x: frame.size.width/2, y: 22.5)
+            unfoldBtn.isHidden = false
+            return
+        }
+        
+        if locationModel.type == .header || locationModel.type == .single {
+            avatarImageView.image = UIImage(named: "avatar")
+            avatarImageView.isHidden = false
+        }
+        
+        
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+    }
+    
+    
+    func setUpNameAndFrom(){
+        
+    }
+    
+    func setUpVote(){
+        
+    }
+    
+    func setUpComment(){
+        
+    }
+    
+    
+    // actions
+    
+    @objc func tap() {
+        
+    }
+    
+    @objc func voteUp(){
+        
+    }
+    
+    @objc func expand() {
+        
+    }
+    
+    @objc func unfold() {
+        
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

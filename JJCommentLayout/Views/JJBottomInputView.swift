@@ -34,9 +34,9 @@ class JJBottomInputView: UIView {
     }
     
     func setUpUI() {
-        backgroundColor = RGB(r: 245, g: 245, b: 245)
+        backgroundColor = RGB(245, 245,245)
         
-        line.backgroundColor = RGB(r: 202, g: 202, b: 202)
+        line.backgroundColor = RGB(202, 202, 202)
         line.translatesAutoresizingMaskIntoConstraints = false
         addSubview(line)
         
@@ -45,7 +45,7 @@ class JJBottomInputView: UIView {
         inputArea.layer.cornerRadius = 15.5
         inputArea.layer.borderWidth = 0.5
         inputArea.layer.masksToBounds = true
-        inputArea.layer.borderColor = RGB(r: 202, g: 202, b: 202).cgColor
+        inputArea.layer.borderColor = RGB(202, 202, 202).cgColor
         addSubview(inputArea)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +57,7 @@ class JJBottomInputView: UIView {
         replyLabel.text = "Write a comment"
         replyLabel.textAlignment = .left
         replyLabel.font = UIFont.systemFont(ofSize: 16)
-        replyLabel.textColor = RGB(r: 139, g: 139, b: 139)
+        replyLabel.textColor = RGB(139, 139, 139)
         inputArea.addSubview(replyLabel)
         
         var allViews = ["imageView":imageView,"replyLabel":replyLabel]
@@ -68,7 +68,7 @@ class JJBottomInputView: UIView {
         listButton.translatesAutoresizingMaskIntoConstraints = false
         listButton.setTitle("213", for: .normal)
         listButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
-        listButton.setTitleColor(RGB(r: 239, g: 45, b: 54), for: .normal)
+        listButton.setTitleColor(RGB(239, 45, 54), for: .normal)
         listButton.setImage(UIImage(named: "dialoge"), for: .normal)
         listButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 5)
         listButton .addTarget(self, action: #selector(showCommentList) , for:.touchUpInside)

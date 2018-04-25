@@ -34,7 +34,7 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
         table.delegate = self
         table.dataSource = self
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.backgroundColor = RGB(r: 246, g: 246, b: 246)
+        table.backgroundColor = RGB(246, 246, 246)
         table.register(JJCommentTableViewCell.self, forCellReuseIdentifier: kCommentCellIdentifier)
         table.separatorStyle = .none
         view.addSubview(table)
