@@ -57,7 +57,7 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
             }
             if let data = dict["data"] as? [String:Any] {
-                if let rawComments = data["comments"] as? [String:Any],
+                if let rawComments = data["comments"] as? [String:[String:Any]],
                     let rawStructure = data["commentIds"] as? [String] {
                     dataHandler.constuct(from: rawComments, and: rawStructure){(dataSource) -> Void in
                         

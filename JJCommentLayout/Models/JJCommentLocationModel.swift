@@ -12,8 +12,22 @@ enum JJLocationType {
     case single, cite, header, footer, hide
 }
 
-struct JJCommentLocationModel {
-    init(){
-        
+class JJCommentLocationModel {
+    let commentKey:String
+    var realFloorNumber:Int!
+    var nestedNumber:Int?
+    var type:JJLocationType!
+    var hideComments:[JJCommentLocationModel]?
+    var allComments:[JJCommentLocationModel]?
+    var indexPath:NSIndexPath?
+    var dataSource:JJCommentDataModel!
+    var voted:Bool!
+    var lengthLimiation:Bool!
+    var enableReply:Bool!
+    
+    
+    init(commentKey:String){
+        self.commentKey = commentKey
+        self.lengthLimiation = true
     }
 }
