@@ -15,18 +15,20 @@ class JJBottomInputView: UIView {
     let listButton = UIButton(frame: .zero)
     let line = UIView(frame: .zero)
     let replyLabel = UILabel(frame: .zero)
-
     
+    var listButtonEvent : (() -> Void)?
+
+    init(event:(()->Void)?){
+        listButtonEvent = event
+        super.init(frame:.zero)
+        setUpUI()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpUI()
     }
-    
-    convenience init(){
-        self.init(frame: CGRect.zero)
-    }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -82,7 +84,9 @@ class JJBottomInputView: UIView {
     }
     
     @objc func showCommentList() {
-        
+        if let execute = listButtonEvent {
+            execute()
+        }
     }
     
     

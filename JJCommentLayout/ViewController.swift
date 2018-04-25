@@ -12,7 +12,7 @@ import WebKit
 class ViewController: UIViewController, WKNavigationDelegate {
     
     var brower = WKWebView(frame: .zero)
-    let inputBar = JJBottomInputView(frame: .zero)
+    var inputBar:JJBottomInputView!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -27,6 +27,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         brower.navigationDelegate = self
+        inputBar = JJBottomInputView(){
+            [unowned self] in
+            self.showList()
+        }
         
         view.addSubview(brower)
         view.addSubview(inputBar)
@@ -34,7 +38,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         brower.translatesAutoresizingMaskIntoConstraints = false
         inputBar.translatesAutoresizingMaskIntoConstraints = false
         
-        let allViews = ["brower":brower, "inputBar":inputBar]
+        let allViews = ["brower":brower, "inputBar":inputBar] as [String : Any]
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:|[brower][inputBar(43)]|", options: [], metrics: nil, views: allViews))
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|[brower]|", options: [], metrics: nil, views: allViews))
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|[inputBar]|", options: [], metrics: nil, views: allViews))
@@ -59,6 +63,9 @@ class ViewController: UIViewController, WKNavigationDelegate {
         print(error.localizedDescription)
     }
 
+    func showList() {
+        performSegue(withIdentifier: "ShowComment", sender: nil)
+    }
 
 }
 
