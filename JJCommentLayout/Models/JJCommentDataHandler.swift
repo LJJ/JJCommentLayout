@@ -75,11 +75,11 @@ class JJCommentDataHandler{
                 headerLocationModel.dataSource = headerDataModel
                 aLocationList.insert(headerLocationModel, at: 0)
                 if aLocationList.count > kMaxDefaultFloorNumber {
-                    let hideList = Array(aLocationList[foldNumber/2+1...aLocationList.count-foldNumber/2])
+                    let hideList = Array(aLocationList[foldNumber/2+1..<aLocationList.count-foldNumber/2])
                     let hideLocationModel = JJCommentLocationModel(commentKey: "hide\(index)")
                     hideLocationModel.hideComments = hideList
                     hideLocationModel.allComments = aLocationList
-                    aLocationList.removeSubrange(foldNumber/2+1...aLocationList.count-foldNumber/2)
+                    aLocationList.removeSubrange(foldNumber/2+1..<aLocationList.count-foldNumber/2)
                     aLocationList.insert(hideLocationModel, at: foldNumber/2+1)
                 }
                 locateComments(locaitonList: aLocationList)
@@ -100,7 +100,9 @@ class JJCommentDataHandler{
                 } else {
                     locationModel.nestedNumber = commentAmount-locationModel.realFloorNumber
                     if locationModel.hideComments == nil {
-                        if locationModel.nestedNumber==0 { locationModel.type = .footer}
+                        if locationModel.nestedNumber==0 {
+                            locationModel.type = .footer
+                        }
                         else {locationModel.type = .cite}
                     } else{
                         locationModel.type = .hide

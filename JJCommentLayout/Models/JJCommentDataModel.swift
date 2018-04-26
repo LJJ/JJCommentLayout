@@ -14,12 +14,12 @@ enum JJCommentType {
 
 struct JJCommentDataModel {
     let commentId:Int
-    let userName:String
+    var userName:String?
     let userId:Int
-    let avatar:String
+    let avatar:String?
     let from:String
     let location:String
-    let siteName:String
+    let siteName = ""
     let content:String
     let createTime:Date
     let upNumber:Int
@@ -28,14 +28,12 @@ struct JJCommentDataModel {
     let anonymous:Bool
     
     init?(with dict:[String:Any]) {
+        
         let userInfo = dict["user"] as! [String:Any]
         guard let commentId = dict["commentId"] as? Int,
-        let userName = userInfo["nickname"] as? String,
         let userId = userInfo["userId"] as? Int,
-        let avatar = userInfo["avatar"] as? String,
-        let from = userInfo["from"] as? String,
+        let from = dict["ip"] as? String,
         let location = userInfo["location"] as? String,
-        let siteName = dict["siteName"] as? String,
         let content = dict["content"] as? String,
         let createTime = dict["createTime"] as? String,
         let upNumber = dict["vote"] as? Int,
@@ -46,12 +44,14 @@ struct JJCommentDataModel {
             return nil
         }
         self.commentId = commentId
-        self.userName = userName
+        self.userName = userInfo["nickname"] as? String
+        if userName == nil {
+            userName = "No Name"
+        }
         self.userId = userId
-        self.avatar = avatar
+        self.avatar = userInfo["avatar"] as? String
         self.from = from
         self.location = location
-        self.siteName = siteName
         self.content = content
         self.upNumber = upNumber
         self.floorNumber = floorNumber

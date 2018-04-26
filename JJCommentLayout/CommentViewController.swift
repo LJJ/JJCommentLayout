@@ -14,8 +14,8 @@ let kCommentCellIdentifier = "kCommentCellIdentifier"
 class CommentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let table = UITableView()
-    var popularList:[JJCommentLocationModel]!
-    var latestList:[JJCommentLocationModel]!
+    var popularList = [JJCommentLocationModel]()
+    var latestList = [JJCommentLocationModel]()
     var inputBar:JJBottomInputView!
     var dataHandler = JJCommentDataHandler(foldNumber: 4)
     
@@ -60,13 +60,24 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
                 if let rawComments = data["comments"] as? [String:[String:Any]],
                     let rawStructure = data["commentIds"] as? [String] {
                     dataHandler.constuct(from: rawComments, and: rawStructure){(dataSource) -> Void in
-                        
+                        self.popularList = dataSource
+                        self.table.reloadData()
                     }
                 }
             }
             
         }
         
+    }
+    
+    func getLocationModel(by indexPath:IndexPath) -> JJCommentLocationModel {
+        var locationModel:JJCommentLocationModel!
+        if indexPath.section == 0 {
+            locationModel = popularList[indexPath.row]
+        } else {
+            locationModel = latestList[indexPath.row];
+        }
+        return locationModel;
     }
     
 //table datasource
@@ -84,12 +95,21 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: kCommentCellIdentifier, for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: kCommentCellIdentifier, for: indexPath) as! JJCommentTableViewCell
+        let model = getLocationModel(by:indexPath)
+        model.enableReply = true
+        model.indexPath = indexPath
+        cell.setUpCell(with: model)
         return cell
     }
     
 //table delegate
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let locationModel = getLocationModel(by: indexPath)
+        let height = JJCommentTableViewCell.calculateCellHeight(with: locationModel, and: tableView.frame.size.width)
+        return height
+    }
 }
 
 

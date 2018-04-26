@@ -19,11 +19,11 @@ class JJCommentLocationModel {
     var type:JJLocationType!
     var hideComments:[JJCommentLocationModel]?
     var allComments:[JJCommentLocationModel]?
-    var indexPath:NSIndexPath?
+    var indexPath:IndexPath?
     var dataSource:JJCommentDataModel!
-    var voted:Bool!
+    var voted = false
     var lengthLimiation:Bool!
-    var enableReply:Bool!
+    var enableReply = true
     
     
     init(commentKey:String){
