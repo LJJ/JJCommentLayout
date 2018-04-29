@@ -35,7 +35,9 @@ class JJCommentDataHandler{
     func dataModels(from rawDict:[String:[String:Any]]) -> [String:JJCommentDataModel] {
         var res = [String:JJCommentDataModel]()
         for (key, value) in rawDict {
-            res[key] = JJCommentDataModel(with: value)
+            if let model = JJCommentDataModel(with: value) {
+                res[key] = model
+            }
         }
         return res
     }

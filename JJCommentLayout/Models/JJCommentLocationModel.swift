@@ -19,7 +19,7 @@ class JJCommentLocationModel {
     var type:JJLocationType!
     var hideComments:[JJCommentLocationModel]?
     var allComments:[JJCommentLocationModel]?
-    var indexPath:IndexPath?
+    var indexPath:IndexPath!
     var dataSource:JJCommentDataModel!
     var voted = false
     var lengthLimiation:Bool!

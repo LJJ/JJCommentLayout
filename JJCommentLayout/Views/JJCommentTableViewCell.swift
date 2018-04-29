@@ -34,11 +34,11 @@ let kCommentFontColor = RGB(34, 34, 33)
 let kSubviewBackgroundColor = UIColor.clear
 
 protocol JJCommentTableViewCellDelegate:AnyObject {
-    func commentTableViewCellVoteUp(_ locationModel:JJCommentLocationModel)
+//    func commentTableViewCellVoteUp(_ locationModel:JJCommentLocationModel)
     func commentTableViewCellUnfold(_ locationModel:JJCommentLocationModel)
-    func commentTableViewCellVoteDown(_ locationModel:JJCommentLocationModel)
-    func commentTableViewCellShare(_ locationModel:JJCommentLocationModel)
-    func commentTableViewCellReply(_ locationModel:JJCommentLocationModel)
+//    func commentTableViewCellVoteDown(_ locationModel:JJCommentLocationModel)
+//    func commentTableViewCellShare(_ locationModel:JJCommentLocationModel)
+//    func commentTableViewCellReply(_ locationModel:JJCommentLocationModel)
     func commentTableViewCellExpand(_ locationModel:JJCommentLocationModel)
 }
 
@@ -364,7 +364,7 @@ class JJCommentTableViewCell:UITableViewCell {
     }
     
     
-    // actions
+    // MARK: delegate
     
     @objc func tap() {
         
@@ -375,11 +375,12 @@ class JJCommentTableViewCell:UITableViewCell {
     }
     
     @objc func expand() {
-        
+        locationModel.lengthLimiation = false
+        delegate?.commentTableViewCellExpand(locationModel)
     }
     
     @objc func unfold() {
-        
+        delegate?.commentTableViewCellUnfold(locationModel)
     }
 }
 
