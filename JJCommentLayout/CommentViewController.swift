@@ -29,6 +29,9 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        updateCurrentTime()
+        
         inputBar = JJBottomInputView.init(event: nil)
         inputBar.translatesAutoresizingMaskIntoConstraints = false
         table.delegate = self

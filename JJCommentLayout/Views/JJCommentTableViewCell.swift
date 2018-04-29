@@ -235,7 +235,7 @@ class JJCommentTableViewCell:UITableViewCell {
             userFromLabel.frame = CGRect(x:leftMargin, y:topMargin+kUserNameLabelHeight+kVerticalSpaceHeight1, width:self.frame.size.width-leftMargin-rightMargin, height:kUserFromLabelHeight)
             
             
-            let from = "[\(locationModel.dataSource.siteName)\(locationModel.dataSource.location)] 0 sec ago"
+            let from = "[\(locationModel.dataSource.siteName)\(locationModel.dataSource.location)] \(timeSince(created: locationModel.dataSource.createTime))"
             userFromLabel.text = from
             userNameLabel.text = locationModel.dataSource.userName
             userFromLabel.isHidden = false
