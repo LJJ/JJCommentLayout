@@ -34,11 +34,11 @@ let kCommentFontColor = RGB(34, 34, 33)
 let kSubviewBackgroundColor = UIColor.clear
 
 protocol JJCommentTableViewCellDelegate:AnyObject {
-    func commentTableViewCellVoteUp(_ locationModel:JJCommentLocationModel)
+//    func commentTableViewCellVoteUp(_ locationModel:JJCommentLocationModel)
     func commentTableViewCellUnfold(_ locationModel:JJCommentLocationModel)
-    func commentTableViewCellVoteDown(_ locationModel:JJCommentLocationModel)
-    func commentTableViewCellShare(_ locationModel:JJCommentLocationModel)
-    func commentTableViewCellReply(_ locationModel:JJCommentLocationModel)
+//    func commentTableViewCellVoteDown(_ locationModel:JJCommentLocationModel)
+//    func commentTableViewCellShare(_ locationModel:JJCommentLocationModel)
+//    func commentTableViewCellReply(_ locationModel:JJCommentLocationModel)
     func commentTableViewCellExpand(_ locationModel:JJCommentLocationModel)
 }
 
@@ -235,7 +235,7 @@ class JJCommentTableViewCell:UITableViewCell {
             userFromLabel.frame = CGRect(x:leftMargin, y:topMargin+kUserNameLabelHeight+kVerticalSpaceHeight1, width:self.frame.size.width-leftMargin-rightMargin, height:kUserFromLabelHeight)
             
             
-            let from = "[\(locationModel.dataSource.siteName)\(locationModel.dataSource.location)] 0 sec ago"
+            let from = "[\(locationModel.dataSource.siteName)\(locationModel.dataSource.location)] \(timeSince(created: locationModel.dataSource.createTime))"
             userFromLabel.text = from
             userNameLabel.text = locationModel.dataSource.userName
             userFromLabel.isHidden = false
@@ -364,7 +364,7 @@ class JJCommentTableViewCell:UITableViewCell {
     }
     
     
-    // actions
+    // MARK: delegate
     
     @objc func tap() {
         
@@ -375,11 +375,12 @@ class JJCommentTableViewCell:UITableViewCell {
     }
     
     @objc func expand() {
-        
+        locationModel.lengthLimiation = false
+        delegate?.commentTableViewCellExpand(locationModel)
     }
     
     @objc func unfold() {
-        
+        delegate?.commentTableViewCellUnfold(locationModel)
     }
 }
 

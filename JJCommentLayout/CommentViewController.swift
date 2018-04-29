@@ -11,7 +11,7 @@ import UIKit
 
 let kCommentCellIdentifier = "kCommentCellIdentifier"
 
-class CommentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CommentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, JJCommentTableViewCellDelegate {
     
     let table = UITableView()
     var popularList = [JJCommentLocationModel]()
@@ -29,6 +29,9 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        updateCurrentTime()
+        
         inputBar = JJBottomInputView.init(event: nil)
         inputBar.translatesAutoresizingMaskIntoConstraints = false
         table.delegate = self
@@ -96,6 +99,7 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: kCommentCellIdentifier, for: indexPath) as! JJCommentTableViewCell
+        cell.delegate = self
         let model = getLocationModel(by:indexPath)
         model.enableReply = true
         model.indexPath = indexPath
@@ -109,6 +113,26 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
         let locationModel = getLocationModel(by: indexPath)
         let height = JJCommentTableViewCell.calculateCellHeight(with: locationModel, and: tableView.frame.size.width)
         return height
+    }
+    
+    //tableview cell
+    
+    func commentTableViewCellExpand(_ locationModel: JJCommentLocationModel) {
+         table.reloadRows(at: [locationModel.indexPath], with: .automatic)
+    }
+    
+    func commentTableViewCellUnfold(_ locationModel: JJCommentLocationModel) {
+       
+        if locationModel.indexPath.section == 0, let more = locationModel.hideComments {
+            popularList.remove(at: locationModel.indexPath.row)
+            popularList.insert(contentsOf: more, at: locationModel.indexPath.row)
+        } else if locationModel.indexPath.section == 1, let more = locationModel.hideComments {
+            popularList.remove(at: locationModel.indexPath.row)
+            popularList.insert(contentsOf:more, at: locationModel.indexPath.row)
+        }
+        
+        dataHandler.locateComments(locaitonList: locationModel.allComments!)
+        table.reloadData()
     }
 }
 
