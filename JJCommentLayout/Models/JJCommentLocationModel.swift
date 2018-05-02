@@ -17,8 +17,8 @@ class JJCommentLocationModel {
     var realFloorNumber:Int!
     var nestedNumber:Int?
     var type:JJLocationType!
-    var hideComments:[JJCommentLocationModel]?
-    var allComments:[JJCommentLocationModel]?
+    var hideComments:[JJCommentLocationModel]!
+    var allComments:[JJCommentLocationModel]!
     var indexPath:IndexPath!
     var dataSource:JJCommentDataModel!
     var voted = false

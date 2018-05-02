@@ -32,7 +32,7 @@ class JJCommentDataHandler{
     }
     
     
-    func dataModels(from rawDict:[String:[String:Any]]) -> [String:JJCommentDataModel] {
+    fileprivate func dataModels(from rawDict:[String:[String:Any]]) -> [String:JJCommentDataModel] {
         var res = [String:JJCommentDataModel]()
         for (key, value) in rawDict {
             if let model = JJCommentDataModel(with: value) {
@@ -42,7 +42,7 @@ class JJCommentDataHandler{
         return res
     }
     
-    func locationList(from stuctionInfo:[String], and commentDataModels:[String:JJCommentDataModel]) -> [[JJCommentLocationModel]] {
+   fileprivate func locationList(from stuctionInfo:[String], and commentDataModels:[String:JJCommentDataModel]) -> [[JJCommentLocationModel]] {
         var res = [[JJCommentLocationModel]]()
         for structStr in stuctionInfo {
             let idList = structStr.components(separatedBy: ",")
@@ -62,7 +62,7 @@ class JJCommentDataHandler{
     }
     
     
-    func calculateLocation(by locationModelList:[[JJCommentLocationModel]]) -> [JJCommentLocationModel] {
+    fileprivate func calculateLocation(by locationModelList:[[JJCommentLocationModel]]) -> [JJCommentLocationModel] {
         var res = [JJCommentLocationModel]()
         for (index, value) in locationModelList.enumerated() {
             var aLocationList = value

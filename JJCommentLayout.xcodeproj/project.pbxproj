@@ -22,6 +22,8 @@
 		0EDB754C20901B6E00727B26 /* JJCommentDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB754B20901B6E00727B26 /* JJCommentDataHandler.swift */; };
 		0EE57DF820894EEE0022D51E /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EE57DF720894EEE0022D51E /* test.json */; };
 		0EE57E03208D7DE50022D51E /* JJBottomInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE57E02208D7DE50022D51E /* JJBottomInputView.swift */; };
+		0EF62BF02096621900C7543E /* JJTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF62BEF2096621900C7543E /* JJTableFooterView.swift */; };
+		0EF62BF22096659700C7543E /* JJCommentTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF62BF12096659700C7543E /* JJCommentTableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		0EE57DF720894EEE0022D51E /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		0EE57DFA208952880022D51E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		0EE57E02208D7DE50022D51E /* JJBottomInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JJBottomInputView.swift; sourceTree = "<group>"; };
+		0EF62BEF2096621900C7543E /* JJTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JJTableFooterView.swift; sourceTree = "<group>"; };
+		0EF62BF12096659700C7543E /* JJCommentTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JJCommentTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,8 +173,10 @@
 		0EE57E01208D7DC80022D51E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0EF62BF12096659700C7543E /* JJCommentTableView.swift */,
 				0EE57E02208D7DE50022D51E /* JJBottomInputView.swift */,
 				0EDB75492090183E00727B26 /* JJCommentTableViewCell.swift */,
+				0EF62BEF2096621900C7543E /* JJTableFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -311,10 +317,12 @@
 				0EDB7548208FBBB000727B26 /* CommentViewController.swift in Sources */,
 				0EDB754A2090183E00727B26 /* JJCommentTableViewCell.swift in Sources */,
 				0EE57E03208D7DE50022D51E /* JJBottomInputView.swift in Sources */,
+				0EF62BF22096659700C7543E /* JJCommentTableView.swift in Sources */,
 				0ED0C7002088267800ED0CEB /* ViewController.swift in Sources */,
 				0EBBEF56208D8FAD0062315E /* JJCommon.swift in Sources */,
 				0ED0C6FE2088267800ED0CEB /* AppDelegate.swift in Sources */,
 				0EDB7546208EA9C000727B26 /* JJCommentLocationModel.swift in Sources */,
+				0EF62BF02096621900C7543E /* JJTableFooterView.swift in Sources */,
 				0EDB7544208EA9B200727B26 /* JJCommentDataModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
