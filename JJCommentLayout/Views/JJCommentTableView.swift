@@ -18,7 +18,7 @@ class JJCommentTableView:UIView, UITableViewDataSource, UITableViewDelegate {
     let sectionNumber: Int
     
     let dataHandler = JJCommentDataHandler(foldNumber: 4)
-    var commentsData = [[JJCommentLocationModel]]()
+    var commentsData:[[JJCommentLocationModel]]
     
     // MARK: init method
     convenience init(_ sectionNumber:Int=2) {
@@ -27,16 +27,19 @@ class JJCommentTableView:UIView, UITableViewDataSource, UITableViewDelegate {
     
     init(frame: CGRect, sectionNumber:Int) {
         self.sectionNumber = sectionNumber
+        self.commentsData = Array(repeating: [JJCommentLocationModel](), count: sectionNumber)
         super.init(frame: frame)
     }
     
     override init(frame: CGRect) {
-        self.sectionNumber = 2
+        sectionNumber = 2
+        self.commentsData = Array(repeating: [JJCommentLocationModel](), count: sectionNumber)
         super.init(frame: frame)
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.sectionNumber = 2
+        self.commentsData = Array(repeating: [JJCommentLocationModel](), count: sectionNumber)
         super.init(coder: aDecoder)
     }
     
@@ -62,8 +65,7 @@ class JJCommentTableView:UIView, UITableViewDataSource, UITableViewDelegate {
             return
         }
         dataHandler.constuct(from: comments, and: structure) { (dataSource) in
-            self.commentsData = [[JJCommentLocationModel]]()
-            self.commentsData.append(dataSource)
+            self.commentsData[section] = dataSource
             self.table.reloadData()
         }
     }

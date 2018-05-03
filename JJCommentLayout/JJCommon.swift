@@ -24,7 +24,11 @@ func updateCurrentTime() {
 //    print(dateString)
 }
 
-func timeSince(created:Date) -> String {
+func timeSince(created:Date?) -> String {
+    guard let created = created else{
+        return ""
+    }
+    
     let duration = now.timeIntervalSince(created)
     if (duration<=15) {
         return String(format: "%.0f sec ago", duration)
