@@ -122,7 +122,7 @@ class JJCommentTableView:UIView, UITableViewDataSource, UITableViewDelegate {
     func commentTableViewCellUnfold(_ locationModel: JJCommentLocationModel) {
         commentsData[0].remove(at: locationModel.indexPath.row)
         commentsData[0].insert(contentsOf:locationModel.hideComments, at: locationModel.indexPath.row)
-        dataHandler.locateComments(locaitonList: locationModel.allComments!)
+        dataHandler.locateComments(locaitonSequence: locationModel.allComments!)
         table.reloadData()
     }
     

@@ -313,7 +313,7 @@ class JJCommentTableViewCell:UITableViewCell {
     static func calculateCommentSize(with model:JJCommentLocationModel, font:UIFont, width:CGFloat) -> CGSize {
         var leftMargin=kBaseLeftMargin
         var rightMargin=kBaseRightMargin+20
-        let nestedNumber = CGFloat(integerLiteral: model.nestedNumber!)
+        let nestedNumber = CGFloat(integerLiteral: model.nestedNumber)
         if (model.type == .cite )
         {
             leftMargin = kBaseLeftMargin+kBaseHorizonMarginDiff*(nestedNumber-1)+10
@@ -334,7 +334,7 @@ class JJCommentTableViewCell:UITableViewCell {
         var height:CGFloat!
         
         if (model.type == .header) {
-            let maxNestedNum = CGFloat(integerLiteral: model.nestedNumber!-1)
+            let maxNestedNum = CGFloat(integerLiteral: model.nestedNumber-1)
             
             height = kVerticalTopMarginHeight+kUserNameLabelHeight+kVerticalSpaceHeight1+kUserFromLabelHeight+kVerticalBottomMarginHeight+kBaseHorizonMarginDiff*(maxNestedNum-1)
         } else if(model.type == .hide){

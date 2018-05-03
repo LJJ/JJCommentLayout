@@ -15,10 +15,12 @@ enum JJLocationType {
 class JJCommentLocationModel {
     let commentKey:String
     var realFloorNumber:Int!
-    var nestedNumber:Int?
+    var nestedNumber:Int!
     var type:JJLocationType!
-    var hideComments:[JJCommentLocationModel]!
-    var allComments:[JJCommentLocationModel]!
+    var hideComments:[JJCommentLocationModel]! //for unfold
+    var allComments:[JJCommentLocationModel]! //for unfold
+    
+    
     var indexPath:IndexPath!
     var dataSource:JJCommentDataModel!
     var voted = false
