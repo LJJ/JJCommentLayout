@@ -100,11 +100,12 @@ class JJCommentTableView:UIView, UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: kCommentCellIdentifier, for: indexPath) as! JJCommentTableViewCell
-//        cell.delegate = self
         let model = getLocationModel(by:indexPath)
         model.enableReply = true
         model.indexPath = indexPath
         cell.setUpCell(with: model)
+        cell.unfoldBtn.addTarget(self, action: #selector(unfold(sender:)), for: .touchUpInside)
+        cell.showAllBtn.addTarget(self, action: #selector(expand(sender:)), for: .touchUpInside)
         return cell
     }
     
@@ -123,6 +124,22 @@ class JJCommentTableView:UIView, UITableViewDataSource, UITableViewDelegate {
         commentsData[0].remove(at: locationModel.indexPath.row)
         commentsData[0].insert(contentsOf:locationModel.hideComments, at: locationModel.indexPath.row)
         dataHandler.locateComments(locaitonSequence: locationModel.allComments!)
+        table.reloadData()
+    }
+    
+    //MARK: Cell action
+    @objc func expand(sender:UIButton) {
+        let cell = sender.superview!.superview! as! JJCommentTableViewCell
+        cell.locationModel.lengthLimiation = false
+        table.reloadRows(at: [cell.locationModel.indexPath], with: .automatic)
+    }
+    
+    @objc func unfold(sender:UIButton) {
+        let cell = sender.superview!.superview! as! JJCommentTableViewCell
+        let locationModel = cell.locationModel!
+        commentsData[locationModel.indexPath.section].remove(at:locationModel.indexPath.row)
+        commentsData[locationModel.indexPath.section].insert(contentsOf: locationModel.hideComments, at: locationModel.indexPath.row)
+        dataHandler.locateComments(locaitonSequence: locationModel.allComments)
         table.reloadData()
     }
     

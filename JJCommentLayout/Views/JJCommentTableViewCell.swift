@@ -108,7 +108,6 @@ class JJCommentTableViewCell:UITableViewCell {
         unfoldBtn.setImage(UIImage(named: "unflod"), for: .normal)
         unfoldBtn.setTitle("Show the hidden", for: .normal)
         unfoldBtn.setTitleColor(RGB(153, 153, 153), for: .normal)
-        unfoldBtn.addTarget(self, action: #selector(unfold), for: .touchUpInside)
         unfoldBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 125, 0, -125)
         unfoldBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
         contentView.addSubview(unfoldBtn)
@@ -120,7 +119,6 @@ class JJCommentTableViewCell:UITableViewCell {
         showAllBtn.setTitle("All", for: .normal)
         showAllBtn.titleLabel?.font = UIFont.systemFont(ofSize: 10)
         showAllBtn.setTitleColor(kUserFromFontColor, for: .normal)
-        showAllBtn.addTarget(self, action: #selector(expand), for: .touchUpInside)
         contentView.addSubview(showAllBtn)
     }
     
@@ -181,7 +179,7 @@ class JJCommentTableViewCell:UITableViewCell {
                 context.fill(CGRect(x:kBaseLeftMargin, y:0, width:rect.size.width-kBaseRightMargin-kBaseLeftMargin, height:rect.size.height))
             }
             
-            for i in 0..<locationModel.nestedNumber! {
+            for i in 0..<locationModel.nestedNumber {
                 let i = CGFloat(integerLiteral: i)
                 let leftMargin = kBaseLeftMargin+i*kBaseHorizonMarginDiff
                 let rightMargin = kBaseRightMargin+i*kBaseHorizonMarginDiff
@@ -195,7 +193,7 @@ class JJCommentTableViewCell:UITableViewCell {
             }
             
             if locationModel.nestedNumber!>0 {
-                let nestedNumber = CGFloat(integerLiteral: locationModel.nestedNumber!)
+                let nestedNumber = CGFloat(integerLiteral: locationModel.nestedNumber)
                 context.move(to: CGPoint(x:kBaseLeftMargin+(nestedNumber-1)*kBaseHorizonMarginDiff+0.5, y: rect.size.height-lineWidth))
                 context.addLine(to: CGPoint(x: rect.size.width - kBaseRightMargin-(nestedNumber-1)*kBaseHorizonMarginDiff-0.5, y: rect.size.height-lineWidth))
             }
@@ -219,7 +217,7 @@ class JJCommentTableViewCell:UITableViewCell {
         var leftMargin:CGFloat = 0.0
         var rightMargin:CGFloat = 0.0
         var topMargin:CGFloat = kVerticalTopMarginHeight
-        let nestedNumber = CGFloat(integerLiteral: locationModel.nestedNumber!)
+        let nestedNumber = CGFloat(integerLiteral: locationModel.nestedNumber)
         
         if locationModel.type == .header || locationModel.type == .single {
             leftMargin = kBaseLeftMargin
@@ -269,7 +267,7 @@ class JJCommentTableViewCell:UITableViewCell {
     func setUpComment(){
         var leftMargin=kBaseLeftMargin
         var rightMargin=kBaseRightMargin
-        let nestedNumber = CGFloat(integerLiteral: locationModel.nestedNumber!)
+        let nestedNumber = CGFloat(integerLiteral: locationModel.nestedNumber)
         
         if locationModel.type == .cite {
             leftMargin = kBaseLeftMargin+kBaseHorizonMarginDiff*(nestedNumber-1)+10
@@ -374,14 +372,7 @@ class JJCommentTableViewCell:UITableViewCell {
         
     }
     
-    @objc func expand() {
-        locationModel.lengthLimiation = false
-        delegate?.commentTableViewCellExpand(locationModel)
-    }
-    
-    @objc func unfold() {
-        delegate?.commentTableViewCellUnfold(locationModel)
-    }
+
 }
 
 

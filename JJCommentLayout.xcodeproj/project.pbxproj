@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0EBBEF56208D8FAD0062315E /* JJCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBEF55208D8FAD0062315E /* JJCommon.swift */; };
 		0ED0C6FE2088267800ED0CEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0C6FD2088267800ED0CEB /* AppDelegate.swift */; };
 		0ED0C7002088267800ED0CEB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0C6FF2088267800ED0CEB /* ViewController.swift */; };
 		0ED0C7032088267800ED0CEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ED0C7012088267800ED0CEB /* Main.storyboard */; };
@@ -24,6 +23,8 @@
 		0EE57E03208D7DE50022D51E /* JJBottomInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE57E02208D7DE50022D51E /* JJBottomInputView.swift */; };
 		0EF62BF02096621900C7543E /* JJTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF62BEF2096621900C7543E /* JJTableFooterView.swift */; };
 		0EF62BF22096659700C7543E /* JJCommentTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF62BF12096659700C7543E /* JJCommentTableView.swift */; };
+		0EF62C07209B5E5C00C7543E /* JJCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF62C06209B5E5C00C7543E /* JJCommon.swift */; };
+		0EF62C09209B5EB800C7543E /* dataSample.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EF62C08209B5EB800C7543E /* dataSample.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +45,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0EBBEF55208D8FAD0062315E /* JJCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JJCommon.swift; sourceTree = "<group>"; };
 		0ED0C6FA2088267800ED0CEB /* JJCommentLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JJCommentLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ED0C6FD2088267800ED0CEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0ED0C6FF2088267800ED0CEB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +68,8 @@
 		0EE57E02208D7DE50022D51E /* JJBottomInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JJBottomInputView.swift; sourceTree = "<group>"; };
 		0EF62BEF2096621900C7543E /* JJTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JJTableFooterView.swift; sourceTree = "<group>"; };
 		0EF62BF12096659700C7543E /* JJCommentTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JJCommentTableView.swift; sourceTree = "<group>"; };
+		0EF62C06209B5E5C00C7543E /* JJCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JJCommon.swift; sourceTree = "<group>"; };
+		0EF62C08209B5EB800C7543E /* dataSample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dataSample.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,13 +124,13 @@
 				0ED0C6FD2088267800ED0CEB /* AppDelegate.swift */,
 				0ED0C6FF2088267800ED0CEB /* ViewController.swift */,
 				0EDB7547208FBBB000727B26 /* CommentViewController.swift */,
-				0EBBEF55208D8FAD0062315E /* JJCommon.swift */,
 				0ED0C7012088267800ED0CEB /* Main.storyboard */,
 				0EDB7542208EA95F00727B26 /* Models */,
 				0EE57E01208D7DC80022D51E /* Views */,
 				0ED0C7042088267A00ED0CEB /* Assets.xcassets */,
 				0ED0C7062088267A00ED0CEB /* LaunchScreen.storyboard */,
 				0EE57DF720894EEE0022D51E /* test.json */,
+				0EF62C08209B5EB800C7543E /* dataSample.json */,
 				0ED0C7092088267A00ED0CEB /* Info.plist */,
 			);
 			path = JJCommentLayout;
@@ -155,6 +157,7 @@
 		0EDB7542208EA95F00727B26 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0EF62C06209B5E5C00C7543E /* JJCommon.swift */,
 				0EDB754B20901B6E00727B26 /* JJCommentDataHandler.swift */,
 				0EDB7543208EA9B200727B26 /* JJCommentDataModel.swift */,
 				0EDB7545208EA9C000727B26 /* JJCommentLocationModel.swift */,
@@ -286,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0ED0C7082088267A00ED0CEB /* LaunchScreen.storyboard in Resources */,
+				0EF62C09209B5EB800C7543E /* dataSample.json in Resources */,
 				0EE57DF820894EEE0022D51E /* test.json in Resources */,
 				0ED0C7052088267A00ED0CEB /* Assets.xcassets in Resources */,
 				0ED0C7032088267800ED0CEB /* Main.storyboard in Resources */,
@@ -318,8 +322,8 @@
 				0EDB754A2090183E00727B26 /* JJCommentTableViewCell.swift in Sources */,
 				0EE57E03208D7DE50022D51E /* JJBottomInputView.swift in Sources */,
 				0EF62BF22096659700C7543E /* JJCommentTableView.swift in Sources */,
+				0EF62C07209B5E5C00C7543E /* JJCommon.swift in Sources */,
 				0ED0C7002088267800ED0CEB /* ViewController.swift in Sources */,
-				0EBBEF56208D8FAD0062315E /* JJCommon.swift in Sources */,
 				0ED0C6FE2088267800ED0CEB /* AppDelegate.swift in Sources */,
 				0EDB7546208EA9C000727B26 /* JJCommentLocationModel.swift in Sources */,
 				0EF62BF02096621900C7543E /* JJTableFooterView.swift in Sources */,

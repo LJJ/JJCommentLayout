@@ -107,19 +107,14 @@ class JJCommentDataHandler{
         for (index, locationModel) in locaitonSequence.enumerated(){
             locationModel.realFloorNumber = index
             if index > 0 {
-                if commentAmount - locationModel.realFloorNumber >= kMaxNestedCount {
-                    locationModel.nestedNumber = kMaxNestedCount
-                    locationModel.type = .cite
-                } else {
-                    locationModel.nestedNumber = commentAmount-locationModel.realFloorNumber
-                    if locationModel.hideComments == nil {
-                        if locationModel.nestedNumber==0 {
-                            locationModel.type = .footer
-                        }
-                        else {locationModel.type = .cite}
-                    } else{
-                        locationModel.type = .hide
-                    }
+                
+                let nestedNumber = commentAmount-locationModel.realFloorNumber
+                locationModel.nestedNumber = nestedNumber>=kMaxNestedCount ? kMaxNestedCount:nestedNumber
+                if locationModel.hideComments == nil {
+                    if locationModel.nestedNumber==0 {locationModel.type = .footer}
+                    else {locationModel.type = .cite}
+                } else{
+                    locationModel.type = .hide
                 }
             }
         }
