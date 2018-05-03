@@ -85,8 +85,8 @@ class JJCommentDataHandler{
                     locationSequence.removeSubrange(hiddenRange)
                     locationSequence.insert(hideLocationModel, at: foldNumber/2+1)
                 }
-                locateComments(locaitonSequence: locationSequence)
             }
+            locateComments(locaitonSequence: locationSequence)
             res.append(contentsOf: locationSequence)
         }
         return res
