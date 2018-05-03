@@ -14,53 +14,39 @@ enum JJCommentType {
 
 struct JJCommentDataModel {
     let commentId:Int
-    var userName:String?
+    let userName:String
     let userId:Int
     let avatar:String?
     let from:String
     let location:String
-    let siteName = ""
+    let siteName:String? = nil
     let content:String
-    let createTime:Date
+    let createTime:Date?
     let upNumber:Int
     let floorNumber:Int
     let isDelete:Bool
     let anonymous:Bool
     
-    init?(with dict:[String:Any]) {
+    init(with dict:[String:Any]) {
         
         let userInfo = dict["user"] as! [String:Any]
-        guard let commentId = dict["commentId"] as? Int,
-        let userId = userInfo["userId"] as? Int,
-        let from = dict["ip"] as? String,
-        let location = userInfo["location"] as? String,
-        let content = dict["content"] as? String,
-        let createTime = dict["createTime"] as? String,
-        let upNumber = dict["vote"] as? Int,
-        let floorNumber = dict["buildLevel"] as? Int,
-        let isDelete = dict["isDel"] as? Bool,
-        let anonymous = dict["anonymous"] as? Bool
-        else {
-            return nil
-        }
-        self.commentId = commentId
-        self.userName = userInfo["nickname"] as? String
-        if userName == nil {
-            userName = "No Name"
-        }
-        self.userId = userId
-        self.avatar = userInfo["avatar"] as? String
-        self.from = from
-        self.location = location
-        self.content = content
-        self.upNumber = upNumber
-        self.floorNumber = floorNumber
-        self.isDelete = isDelete
-        self.anonymous = anonymous
+        commentId = dict["commentId"] as? Int ?? 0
+        userName = userInfo["nickname"] as? String ?? "No name"
+        userId = userInfo["userId"] as? Int ?? 0
+        avatar = userInfo["avatar"] as? String
+        from = dict["ip"] as? String ?? ""
+        location = userInfo["location"] as? String ?? ""
+        content = dict["content"] as? String ?? ""
         
         let format =  DateFormatter()
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        self.createTime = format.date(from: createTime)!
+        createTime = format.date(from:dict["createTime"] as? String ?? "")
+        
+        upNumber = dict["vote"] as? Int ?? 0
+        floorNumber = dict["buildLevel"] as? Int ?? 0
+        isDelete = dict["isDel"] as? Bool ?? false
+        anonymous = dict["anonymous"] as? Bool ?? false
+        
     }
     
 }
