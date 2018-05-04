@@ -30,8 +30,9 @@ class JJTableFooterView: UIView {
         setUpUI()
     }
     
-    func setUpUI() {
-        loadMoreBtn = UIButton(frame: CGRect(x: 12, y: 35/2, width:frame.size.width-12*2 , height: 35))
+    fileprivate func setUpUI() {
+        loadMoreBtn = UIButton(frame: CGRect(x: 12, y: 35/2, width:0, height: 35)) //width:frame.size.width-12*2
+        loadMoreBtn.autoresizingMask = [.flexibleWidth]
         loadMoreBtn.layer.masksToBounds = true
         loadMoreBtn.layer.cornerRadius = 8
         loadMoreBtn.layer.borderColor = RGB(202, 202, 202).cgColor
@@ -51,7 +52,7 @@ class JJTableFooterView: UIView {
         return status
     }
     
-    func setStatus(status:FooterStatus) {
+    fileprivate func setStatus(status:FooterStatus) {
         self.status = status
         if (status == .busy) {
             startLoading()
@@ -67,7 +68,7 @@ class JJTableFooterView: UIView {
         loadMoreBtn.setTitle(title, for: .normal)
     }
     
-    func startLoading() {
+    fileprivate func startLoading() {
         loadMoreBtn.setImage(UIImage(named: "load"), for: .normal)
         let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotation.toValue = Double.pi*2
@@ -77,7 +78,7 @@ class JJTableFooterView: UIView {
         loadMoreBtn.imageView?.layer.add(rotation, forKey: "rotationAnimation")
     }
     
-    func stopLoading() {
+    fileprivate func stopLoading() {
         loadMoreBtn.imageView?.layer.removeAnimation(forKey: "rotationAnimation")
         loadMoreBtn.setImage(nil, for: .normal)
     }

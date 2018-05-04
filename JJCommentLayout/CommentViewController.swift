@@ -8,10 +8,11 @@
 
 import Foundation
 import UIKit
+import Darwin
 
 let kCommentCellIdentifier = "kCommentCellIdentifier"
 
-class CommentViewController: UIViewController {
+class CommentViewController: UIViewController, JJCommentTableViewDelegate {
     
     let table = JJCommentTableView(2)
     var popularList = [JJCommentLocationModel]()
@@ -36,6 +37,7 @@ class CommentViewController: UIViewController {
         
         updateCurrentTime()
         table.setUpUI()
+        table.delegate = self
         
         inputBar = JJBottomInputView.init(event: nil)
         inputBar.translatesAutoresizingMaskIntoConstraints = false
@@ -75,9 +77,24 @@ class CommentViewController: UIViewController {
             let rawStructure = rawData["commentIds"] as? [String] {
             page += 1
             if page*10<=rawStructure.count {
-                table.append(comments: rawComments, structure: Array(rawStructure[(page-1)*10..<page*10]), in: 1)
+                
+                DispatchQueue.global().async {
+                    sleep(6) //simulate internet work
+                    DispatchQueue.main.async {
+                        self.table.append(comments: rawComments, structure: Array(rawStructure[(self.page-1)*10..<self.page*10]), in: 1)
+                        self.table.setTableFooter(title: "idle", status: .idle)
+                    }
+                }
             }
         }
+    }
+    
+    
+    //MARK: comment tableview delegate
+    func commentTableHitBottom() {
+        table.setTableFooter(title: "Loading more", status: .busy)
+        loadMore()
+        
     }
     
     

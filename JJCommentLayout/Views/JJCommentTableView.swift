@@ -17,6 +17,8 @@ class JJCommentTableView:UIView, UITableViewDataSource, UITableViewDelegate {
     let table = UITableView()
     let sectionNumber: Int
     
+    weak var delegate:JJCommentTableViewDelegate?
+    
     let dataHandler = JJCommentDataHandler(foldNumber: 4)
     var commentsData:[[JJCommentLocationModel]]
     var tableFooterView:JJTableFooterView!
@@ -60,8 +62,9 @@ class JJCommentTableView:UIView, UITableViewDataSource, UITableViewDelegate {
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:|[table]|", options: [], metrics: nil, views: ["table":table]))
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|[table]|", options: [], metrics: nil, views: ["table":table]))
         
-        tableFooterView = JJTableFooterView()
-        
+        tableFooterView = JJTableFooterView(frame: CGRect(x: 0, y: 0, width: 0, height: 65))
+        table.tableFooterView = tableFooterView
+        tableFooterView.autoresizingMask = [.flexibleWidth]
     }
     
     //MARK: public method
@@ -84,6 +87,14 @@ class JJCommentTableView:UIView, UITableViewDataSource, UITableViewDelegate {
         table.reloadData()
     }
     
+    func setFooter(title:String, status:FooterStatus, in section:Int) {
+        let footer = sectionFooterViews[section]
+        footer.change(to: status, with: title)
+    }
+    
+    func setTableFooter(title:String, status:FooterStatus) {
+        tableFooterView.change(to: status, with: title)
+    }
     
     
     // MARK: private
@@ -141,16 +152,12 @@ class JJCommentTableView:UIView, UITableViewDataSource, UITableViewDelegate {
         return height
     }
     
-    func commentTableViewCellExpand(_ locationModel: JJCommentLocationModel) {
-        table.reloadRows(at: [locationModel.indexPath], with: .automatic)
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if tableFooterView.getStatus() == .idle {
+            delegate?.commentTableHitBottom()
+        }
     }
     
-    func commentTableViewCellUnfold(_ locationModel: JJCommentLocationModel) {
-        commentsData[0].remove(at: locationModel.indexPath.row)
-        commentsData[0].insert(contentsOf:locationModel.hideComments, at: locationModel.indexPath.row)
-        dataHandler.locateComments(locaitonSequence: locationModel.allComments!)
-        table.reloadData()
-    }
     
     //MARK: Cell action
     @objc func expand(sender:UIButton) {
