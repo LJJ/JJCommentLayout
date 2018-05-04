@@ -13,11 +13,15 @@ let kCommentCellIdentifier = "kCommentCellIdentifier"
 
 class CommentViewController: UIViewController {
     
-    let table = JJCommentTableView(1)
+    let table = JJCommentTableView(2)
     var popularList = [JJCommentLocationModel]()
     var latestList = [JJCommentLocationModel]()
     var inputBar:JJBottomInputView!
     var dataHandler = JJCommentDataHandler(foldNumber: 4)
+    
+    var page = 1
+    
+    var rawData:[String:Any]!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -56,15 +60,27 @@ class CommentViewController: UIViewController {
                 
             }
             if let data = dict["data"] as? [String:Any] {
-                if let rawComments = data["comments"] as? [String:[String:Any]],
-                    let rawStructure = data["commentIds"] as? [String] {
-                    table.reload(comments: rawComments, structure: rawStructure, in: 0)
+                rawData = data
+                if let rawComments = rawData["comments"] as? [String:[String:Any]],
+                    let rawStructure = rawData["commentIds"] as? [String] {
+                    table.reload(comments: rawComments, structure: Array(rawStructure[0..<10]), in: 0)
+                    table.reload(comments: rawComments, structure: Array(rawStructure[0..<10]), in: 1)
                 }
             }
-            
         }
-        
     }
+    
+    func loadMore(){
+        if let rawComments = rawData["comments"] as? [String:[String:Any]],
+            let rawStructure = rawData["commentIds"] as? [String] {
+            page += 1
+            if page*10<=rawStructure.count {
+                table.append(comments: rawComments, structure: Array(rawStructure[(page-1)*10..<page*10]), in: 1)
+            }
+        }
+    }
+    
+    
 }
 
 

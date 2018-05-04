@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol JJCommentTableViewDelegate:AnyObject {
-    
+    func commentTableHitBottom()
 }
 
 class JJCommentTableView:UIView, UITableViewDataSource, UITableViewDelegate {
@@ -19,6 +19,8 @@ class JJCommentTableView:UIView, UITableViewDataSource, UITableViewDelegate {
     
     let dataHandler = JJCommentDataHandler(foldNumber: 4)
     var commentsData:[[JJCommentLocationModel]]
+    var tableFooterView:JJTableFooterView!
+    var sectionFooterViews = [JJTableSectionFooterView]()
     
     // MARK: init method
     convenience init(_ sectionNumber:Int=2) {
@@ -52,10 +54,14 @@ class JJCommentTableView:UIView, UITableViewDataSource, UITableViewDelegate {
         table.register(JJCommentTableViewCell.self, forCellReuseIdentifier: kCommentCellIdentifier)
         table.separatorStyle = .none
         
+        
         addSubview(table)
         table.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:|[table]|", options: [], metrics: nil, views: ["table":table]))
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|[table]|", options: [], metrics: nil, views: ["table":table]))
+        
+        tableFooterView = JJTableFooterView()
+        
     }
     
     //MARK: public method
@@ -107,6 +113,28 @@ class JJCommentTableView:UIView, UITableViewDataSource, UITableViewDelegate {
         cell.unfoldBtn.addTarget(self, action: #selector(unfold(sender:)), for: .touchUpInside)
         cell.showAllBtn.addTarget(self, action: #selector(expand(sender:)), for: .touchUpInside)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UIView(frame: CGRect(x: 0, y: 0, width: 70, height: 37))
+        header.backgroundColor = .clear
+        let bgView = UIImageView(frame: CGRect(x: 0, y: 0, width: 70, height: 37))
+        bgView.image = UIImage(named: "header")
+        bgView.backgroundColor = .clear
+        bgView.contentMode = .left
+        header.addSubview(bgView)
+        let label = UILabel(frame: CGRect(x: 0, y: 5, width: 70, height: 30))
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = .white
+        label.backgroundColor = .clear
+        label.text = section == 0 ? "Hot":"New"
+        header.addSubview(label)
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 37
     }
     
     //MARK: table delegate
