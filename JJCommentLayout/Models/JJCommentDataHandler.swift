@@ -20,15 +20,10 @@ class JJCommentDataHandler{
         self.foldNumber = foldNumber
     }
     
-    func constuct(from commentDict:[String:[String:Any]],and structureInfo:[String], complete:@escaping ([JJCommentLocationModel])->Void) {
-        DispatchQueue.global(qos: .default).async {
-            let commentDataModels = self.dataModels(from: commentDict)
-            let locationSeqList = self.locationSequenceList(from: structureInfo, and: commentDataModels)
-            let tableList = self.jointLocationSequence(by: locationSeqList)
-            DispatchQueue.main.async {
-                complete(tableList)
-            }
-        }
+    func constuct(from commentDict:[String:[String:Any]],and structureInfo:[String]) -> [JJCommentLocationModel] {
+        let commentDataModels = dataModels(from: commentDict)
+        let locationSeqList = locationSequenceList(from: structureInfo, and: commentDataModels)
+        return jointLocationSequence(by: locationSeqList)
     }
     
     

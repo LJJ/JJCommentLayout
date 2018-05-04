@@ -70,10 +70,8 @@ class JJCommentTableView:UIView, UITableViewDataSource, UITableViewDelegate {
             print("section should be less than sectionNumber")
             return
         }
-        dataHandler.constuct(from: comments, and: structure) { (dataSource) in
-            self.commentsData[section] = dataSource
-            self.table.reloadData()
-        }
+        commentsData[section] = dataHandler.constuct(from: comments, and: structure)
+        table.reloadData()
     }
     
     func append(comments:[String:[String:Any]], structure:[String], in section:Int) {
@@ -81,12 +79,11 @@ class JJCommentTableView:UIView, UITableViewDataSource, UITableViewDelegate {
             print("section should be less than sectionNumber")
             return
         }
-        dataHandler.constuct(from: comments, and: structure) { (moreData) in
-            self.commentsData[section].append(contentsOf: moreData)
-            self.table.reloadData()
-        }
         
+        commentsData[section].append(contentsOf: dataHandler.constuct(from: comments, and: structure))
+        table.reloadData()
     }
+    
     
     
     // MARK: private
